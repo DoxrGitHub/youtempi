@@ -38,7 +38,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SuspiciousLookingOwl/youtubei.git"
+		"url": "git+https://github.com/DoxrGitHub/youtempi.git"
 	},
 	"keywords": [
 		"youtube",
@@ -58,7 +58,7 @@
 	"author": "Vincent Jonathan",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/SuspiciousLookingOwl/youtubei/issues"
+		"url": "https://github.com/DoxrGitHub/youtempi/issues"
 	},
 	"homepage": "https://suspiciouslookingowl.github.io/youtubei",
 	"dependencies": {
