@@ -11,12 +11,13 @@ class BaseVideoParser {
         var _a, _b, _c, _d;
         const videoInfo = BaseVideoParser.parseRawData(data);
         // Basic information
-        target.id = videoInfo.videoDetails.videoId;
-        target.title = videoInfo.videoDetails.title;
+
+        target.id = videoInfo.subscribeButton.subscribeButtonRenderer.signInEndpoint.modalEndpoint.modal.modalWithTitleAndButtonRenderer.button.buttonRenderer.navigationEndpoint.signInEndpoint.nextEndpoint.watchEndpoint.videoId;
+        target.title = videoInfo.title.runs[0].text;
         target.uploadDate = videoInfo.dateText.simpleText;
-        target.viewCount = +videoInfo.videoDetails.viewCount || null;
-        target.isLiveContent = videoInfo.videoDetails.isLiveContent;
-        target.thumbnails = new common_1.Thumbnails().load(videoInfo.videoDetails.thumbnail.thumbnails);
+        target.viewCount = videoInfo.viewCount.videoViewCountRenderer.viewCount.simpleText;
+        target.isLiveContent = false;
+        target.thumbnails = new common_1.Thumbnails().load(videoInfo.owner.videoOwnerRenderer.thumbnail.thumbnails);
         // Channel
         const { title, thumbnail, subscriberCountText } = videoInfo.owner.videoOwnerRenderer;
         target.channel = new BaseChannel_1.BaseChannel({
@@ -32,7 +33,11 @@ class BaseVideoParser {
         // Tags and description
         target.tags =
             ((_b = (_a = videoInfo.superTitleLink) === null || _a === void 0 ? void 0 : _a.runs) === null || _b === void 0 ? void 0 : _b.map((r) => r.text.trim()).filter((t) => t)) || [];
-        target.description = videoInfo.videoDetails.shortDescription || "";
+        try {
+            target.description = videoInfo.attributedDescription.content || "";
+        } catch {
+            target.description = "[HSYT - NONE FOUND]";
+        }
         // related videos
         let secondaryContents = (_c = data.response.contents.twoColumnWatchNextResults.secondaryResults) === null || _c === void 0 ? void 0 : _c.secondaryResults.results;
         const itemSectionRenderer = (_d = secondaryContents.find((c) => {
